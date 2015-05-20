@@ -60,6 +60,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'dbadapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -98,5 +101,11 @@ return array(
             'routes' => array(
             ),
         ),
+    ),
+    'db' => array(
+        'username' => 'root',
+        'password' => '',
+        'driver' => 'Pdo',
+        'dsn' => 'mysql:dbname=sshdb;host=127.0.0.1',
     ),
 );

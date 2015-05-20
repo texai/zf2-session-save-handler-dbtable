@@ -16,6 +16,24 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+         /*
+            CREATE TABLE `session` (
+                `id` char(32),
+                `name` char(32),
+                `modified` int,
+                `lifetime` int,
+                `data` text,
+                 PRIMARY KEY (`id`, `name`)
+            );
+         */
+        $dbAdapter = $this->getServiceLocator()->get('dbadapter');
+        $tableGateway = new \Zend\Db\TableGateway\TableGateway('session', $dbAdapter);
+        $savehanlerOptions = new \Zend\Session\SaveHandler\DbTableGatewayOptions();
+        $saveHandler  = new \Zend\Session\SaveHandler\DbTableGateway($tableGateway, $savehanlerOptions);
+        $sessManager = new \Zend\Session\SessionManager();
+        $sessManager->setSaveHandler($saveHandler);
+        $sessManager->start(true);
+        \Zend\Session\Container::setDefaultManager($sessManager);
         return new ViewModel();
     }
 }
